@@ -69,3 +69,7 @@ OuterJoynSDK.shared.configure(appearance: appearance)
 ## Docs
 
 https://docs.outerjoyn.com/guides/retailer/ACCOUNT-LINKING-EMBED
+
+## License
+
+MIT — see [LICENSE](LICENSE).
