@@ -91,7 +91,7 @@ public struct OuterJoynWebContent: View {
             :root { \(cssVars) }
             * { margin: 0; padding: 0; box-sizing: border-box; }
             body { font-family: -apple-system, sans-serif; background: transparent; }
-            #oj-widget { min-height: 100vh; }
+            html, body, #oj-widget { height: 100%; }
           </style>
         </head>
         <body>
