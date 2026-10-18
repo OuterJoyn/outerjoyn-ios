@@ -1,6 +1,8 @@
-# OuterJoyn SDK for iOS
+# OuterJoyn SDK for iOS (beta)
 
 Let customers link their loyalty accounts, pay with points and more, from your iOS app. Each widget opens in a native bottom sheet. Partner logins run in Apple's secure sign-in sheet.
+
+> **Beta.** The API may change before 2.0. Tell us what you hit: support@outerjoyn.com.
 
 Requires iOS 16+.
 

@@ -13,9 +13,8 @@ import WebKit
 final class OuterJoynLoginSheet: NSObject, ASWebAuthenticationPresentationContextProviding {
     static let handlerName = "ojLogin"
 
-    /// The API only redirects native logins to pre-registered schemes
-    /// (ALLOWED_MOBILE_SCHEMES in sdkConnectOAuth.ts). The session catches the
-    /// redirect itself, so the host app does not register this scheme.
+    /// The API returns native logins only to its registered app schemes. The
+    /// session catches the redirect itself, so the host app does not register it.
     private static let callbackScheme = "outerjoyn"
     private static let callbackURL = "outerjoyn://connect/callback"
     private static let partnerLoginPath = "/api/v1/connect/oauth/authorize"

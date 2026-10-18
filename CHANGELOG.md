@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.2 (beta)
+
+- README marks the SDK as beta.
+
 ## 1.1.1
 
 - The link sheet's page sizes to the sheet itself, so the link window fills it on every WebKit version.
