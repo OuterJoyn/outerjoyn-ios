@@ -70,6 +70,7 @@ final class OuterJoynLoginSheet: NSObject, ASWebAuthenticationPresentationContex
         query.removeAll { $0.name == "platform" || $0.name == "redirect_uri" }
         query.append(URLQueryItem(name: "platform", value: "mobile"))
         query.append(URLQueryItem(name: "redirect_uri", value: Self.callbackURL))
+        query.append(URLQueryItem(name: "code_screen", value: "1"))
         components.queryItems = query
         guard let loginURL = components.url else { return }
 
@@ -110,13 +111,16 @@ final class OuterJoynLoginSheet: NSObject, ASWebAuthenticationPresentationContex
             if let consumerRef = params["consumer_ref"] { payload["consumer_ref"] = consumerRef }
             message = ["type": "outerjoyn:connect:complete", "payload": payload]
         } else {
-            message = [
-                "type": "outerjoyn:connect:error",
-                "payload": [
-                    "error": params["error"] ?? "unknown_error",
-                    "message": params["error_description"] ?? "Linking did not finish.",
-                ],
+            var payload: [String: Any] = [
+                "error": params["error"] ?? "unknown_error",
+                "message": params["error_description"] ?? "Linking did not finish.",
             ]
+            // What the widget needs to ask for a confirmation code.
+            if let raw = params["details"]?.data(using: .utf8),
+               let details = try? JSONSerialization.jsonObject(with: raw) {
+                payload["details"] = details
+            }
+            message = ["type": "outerjoyn:connect:error", "payload": payload]
         }
         guard let data = try? JSONSerialization.data(withJSONObject: message),
               let json = String(data: data, encoding: .utf8) else { return }

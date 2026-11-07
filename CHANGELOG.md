@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0 (beta)
+
+- When a brand needs a confirmation code to link an account, the link sheet asks for it and finishes the link.
+
 ## 1.1.2 (beta)
 
 - README marks the SDK as beta.
