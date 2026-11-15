@@ -60,6 +60,10 @@ Or in `Package.swift`:
 
 No URL scheme or entitlement is needed for partner logins; the secure sign-in sheet handles the return to your app.
 
+## Open in the app
+
+An offer button can open a brand's app. When the button is tapped the kit opens the app if it is installed, or the button's web page in Safari if not. Nothing to set up in your app.
+
 ## Look
 
 ```swift

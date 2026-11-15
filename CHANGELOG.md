@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.0 (beta)
+
+- "Open in the app" offer buttons open the brand's app when it is installed (a scheme link, or an https link only as a universal link), else the button's web page in Safari. No `LSApplicationQueriesSchemes` entry needed.
+
 ## 1.3.0 (beta)
 
 - `OuterJoynWidgetConfig(partners:)` shows only the partner programs you name in the link sheet. One opens straight on its sign-in; several are the whole list. An id your store can't link ends on an error with code `partner_not_linkable`.

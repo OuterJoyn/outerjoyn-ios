@@ -153,6 +153,11 @@ public struct OuterJoynWebContent: View {
             onError?(NSError(domain: "OuterJoynSDK", code: -1, userInfo: [NSLocalizedDescriptionKey: msg]))
         case "close":
             onClose?()
+        case "open_app_link":
+            let payload = json["payload"] as? [String: Any]
+            if let appUrl = payload?["appUrl"] as? String, let fallbackUrl = payload?["fallbackUrl"] as? String {
+                OuterJoynAppLink.open(appUrl: appUrl, fallbackUrl: fallbackUrl)
+            }
         default:
             break
         }
