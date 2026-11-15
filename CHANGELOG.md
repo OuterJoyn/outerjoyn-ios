@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.0 (beta)
+
+- `OuterJoynWidgetConfig(partners:)` shows only the partner programs you name in the link sheet. One opens straight on its sign-in; several are the whole list. An id your store can't link ends on an error with code `partner_not_linkable`.
+
 ## 1.2.0 (beta)
 
 - When a brand needs a confirmation code to link an account, the link sheet asks for it and finishes the link.

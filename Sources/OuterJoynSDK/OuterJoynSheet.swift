@@ -90,6 +90,10 @@ public struct OuterJoynWidgetConfig {
     public var direction: String?
     /// Lock target to brand (exchange widget only)
     public var lockTargetToBrand: Bool?
+    /// Only these partner program ids (connect widget only). One opens straight
+    /// on its sign-in; several are the whole list. An id the store can't link
+    /// ends on an error with code `partner_not_linkable`.
+    public var partners: [String]?
     /// Additional options passed to the widget
     public var extras: [String: Any]
 
@@ -120,6 +124,7 @@ public struct OuterJoynWidgetConfig {
         shippingCents: Int? = nil,
         direction: String? = nil,
         lockTargetToBrand: Bool? = nil,
+        partners: [String]? = nil,
         extras: [String: Any] = [:]
     ) {
         self.sessionToken = sessionToken
@@ -130,6 +135,7 @@ public struct OuterJoynWidgetConfig {
         self.shippingCents = shippingCents
         self.direction = direction
         self.lockTargetToBrand = lockTargetToBrand
+        self.partners = partners
         self.extras = extras
     }
 }

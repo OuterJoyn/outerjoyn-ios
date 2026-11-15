@@ -39,7 +39,7 @@ Or in `Package.swift`:
        .connect,
        config: OuterJoynWidgetConfig(
            sessionToken: token,
-           extras: ["preselectedBrandId": "<partner program id>"] // optional: skip the program list
+           partners: ["<partner program id>"] // optional: only these partners; one skips the program list
        ),
        from: self,
        onSuccess: { result in

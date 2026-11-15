@@ -70,6 +70,9 @@ public struct OuterJoynWebContent: View {
         if let lock = config.lockTargetToBrand {
             optionsDict["lockTargetToBrand"] = lock
         }
+        if let partners = config.partners {
+            optionsDict["partners"] = partners
+        }
         if widget.fillsSheet {
             optionsDict["presentation"] = "sheet"
         }
