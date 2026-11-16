@@ -14,8 +14,12 @@ public struct OuterJoynWebContent: View {
     let onSuccess: ((Any) -> Void)?
     let onClose: (() -> Void)?
     let onError: ((Error) -> Void)?
+    /// The app configured `appearance`, so its colours style the hosted widget
+    /// too (an unconfigured default would hide the brand's own look).
+    var appearanceConfigured = false
 
     @State private var isLoading = true
+    @Environment(\.colorScheme) private var colorScheme
 
     public var body: some View {
         ZStack {
@@ -75,6 +79,9 @@ public struct OuterJoynWebContent: View {
         }
         if widget.fillsSheet {
             optionsDict["presentation"] = "sheet"
+        }
+        if let web = appearance.webAppearance(includeStyle: appearanceConfigured, deviceScheme: colorScheme) {
+            optionsDict["appearance"] = web
         }
         for (key, value) in config.extras {
             optionsDict[key] = value

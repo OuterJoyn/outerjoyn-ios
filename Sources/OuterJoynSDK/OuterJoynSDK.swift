@@ -29,10 +29,12 @@ public final class OuterJoynSDK {
     public static let shared = OuterJoynSDK()
 
     /// SDK version
-    public static let version = "1.4.0"
+    public static let version = "1.4.1"
 
     /// Current appearance configuration
     public private(set) var appearance = OuterJoynAppearance()
+    /// `configure(appearance:)` was called, so the appearance also styles the hosted widgets.
+    public private(set) var appearanceConfigured = false
 
     /// Whether a widget is currently presented
     public private(set) var isPresenting = false
@@ -48,6 +50,7 @@ public final class OuterJoynSDK {
     /// Configure the SDK appearance. Call before presenting any widgets.
     public func configure(appearance: OuterJoynAppearance) {
         self.appearance = appearance
+        self.appearanceConfigured = true
     }
 
     // MARK: - Presentation
@@ -87,7 +90,8 @@ public final class OuterJoynSDK {
                 self.dismiss()
             },
             onClose: { self.dismiss() },
-            onError: onError
+            onError: onError,
+            appearanceConfigured: appearanceConfigured
         )
 
         let hostingController = UIHostingController(rootView: webContent)
@@ -158,7 +162,8 @@ public final class OuterJoynSDK {
                         isPresented = false
                     },
                     onClose: { isPresented = false },
-                    onError: nil
+                    onError: nil,
+                    appearanceConfigured: OuterJoynSDK.shared.appearanceConfigured
                 )
                 .presentationDetents(widget.fillsSheet ? [.large] : [.medium, .large])
                 .presentationDragIndicator(.visible)

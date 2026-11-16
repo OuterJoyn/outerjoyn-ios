@@ -8,6 +8,10 @@ public struct OuterJoynAppearance {
     public var colors = Colors()
     public var typography = Typography()
     public var shapes = Shapes()
+    /// Match the phone's light or dark mode when the brand's window follows the
+    /// system (OuterJoyn Design > Appearance: System). A brand that chose Light
+    /// or Dark keeps it either way.
+    public var followDeviceColorScheme = true
 
     public init() {}
 
@@ -62,6 +66,36 @@ public struct OuterJoynAppearance {
         public init() {}
     }
 
+    /// The appearance as the hosted widget reads it (the web SDK's
+    /// `appearance`): the colours, corners and font when `includeStyle` (the app
+    /// configured them), plus the device's light or dark mode.
+    func webAppearance(includeStyle: Bool, deviceScheme: ColorScheme) -> [String: Any]? {
+        var out: [String: Any] = [:]
+        if includeStyle {
+            let style: UIUserInterfaceStyle = deviceScheme == .dark ? .dark : .light
+            var vars: [String: String] = [
+                "colorPrimary": colors.primary.hex(for: style),
+                "colorAccent": colors.accent.hex(for: style),
+                "colorBackground": colors.background.hex(for: style),
+                "colorSurface": colors.surface.hex(for: style),
+                "colorText": colors.text.hex(for: style),
+                "colorTextMuted": colors.textMuted.hex(for: style),
+                "colorBorder": colors.border.hex(for: style),
+                "colorSuccess": colors.success.hex(for: style),
+                "colorError": colors.error.hex(for: style),
+                "borderRadius": "\(Int(shapes.cornerRadius))px",
+            ]
+            if let font = typography.fontFamily {
+                vars["fontFamily"] = "'\(font)', system-ui, sans-serif"
+            }
+            out["variables"] = vars
+        }
+        if followDeviceColorScheme {
+            out["deviceColorScheme"] = deviceScheme == .dark ? "dark" : "light"
+        }
+        return out.isEmpty ? nil : out
+    }
+
     /// Convert appearance to CSS custom properties for WebView injection.
     func toCSSVariables() -> String {
         var vars: [String] = []
@@ -94,13 +128,16 @@ extension Color {
         self.init(red: Double(r) / 255, green: Double(g) / 255, blue: Double(b) / 255)
     }
 
-    var hex: String {
+    var hex: String { hex(for: .light) }
+
+    /// The colour as #RRGGBB, with system colours resolved for light or dark.
+    func hex(for style: UIUserInterfaceStyle) -> String {
         var r: CGFloat = 0
         var g: CGFloat = 0
         var b: CGFloat = 0
         var a: CGFloat = 0
         let uiColor = UIColor(self)
-        let resolved = uiColor.resolvedColor(with: UITraitCollection(userInterfaceStyle: .light))
+        let resolved = uiColor.resolvedColor(with: UITraitCollection(userInterfaceStyle: style))
         resolved.getRed(&r, green: &g, blue: &b, alpha: &a)
         return String(format: "#%02X%02X%02X", Int(r * 255), Int(g * 255), Int(b * 255))
     }

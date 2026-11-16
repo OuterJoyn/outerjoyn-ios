@@ -9,6 +9,7 @@ public struct OuterJoynSheet: UIViewControllerRepresentable {
     let widget: OuterJoynWidget
     let config: OuterJoynWidgetConfig
     let appearance: OuterJoynAppearance
+    let appearanceConfigured: Bool
     let onSuccess: ((Any) -> Void)?
     let onClose: (() -> Void)?
     let onError: ((Error) -> Void)?
@@ -16,14 +17,15 @@ public struct OuterJoynSheet: UIViewControllerRepresentable {
     public init(
         widget: OuterJoynWidget,
         config: OuterJoynWidgetConfig,
-        appearance: OuterJoynAppearance = OuterJoynAppearance(),
+        appearance: OuterJoynAppearance? = nil,
         onSuccess: ((Any) -> Void)? = nil,
         onClose: (() -> Void)? = nil,
         onError: ((Error) -> Void)? = nil
     ) {
         self.widget = widget
         self.config = config
-        self.appearance = appearance
+        self.appearance = appearance ?? OuterJoynAppearance()
+        self.appearanceConfigured = appearance != nil
         self.onSuccess = onSuccess
         self.onClose = onClose
         self.onError = onError
@@ -36,7 +38,8 @@ public struct OuterJoynSheet: UIViewControllerRepresentable {
             appearance: appearance,
             onSuccess: onSuccess,
             onClose: onClose,
-            onError: onError
+            onError: onError,
+            appearanceConfigured: appearanceConfigured
         )
 
         let hostingController = UIHostingController(rootView: webContent)

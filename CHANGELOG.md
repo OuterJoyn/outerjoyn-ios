@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.1 (beta)
+
+- The appearance you pass to `OuterJoynSDK.shared.configure(appearance:)` or `OuterJoynSheet(appearance:)` now styles the hosted widgets (the link window included), not only the native views around them.
+- The widgets follow the phone's light or dark mode when the brand's OuterJoyn Design > Appearance is System. Set `appearance.followDeviceColorScheme = false` to keep the brand's look.
+
 ## 1.4.0 (beta)
 
 - "Open in the app" offer buttons open the brand's app when it is installed (a scheme link, or an https link only as a universal link), else the button's web page in Safari. No `LSApplicationQueriesSchemes` entry needed.
