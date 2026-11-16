@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.2 (beta)
+
+- `OuterJoynPromotions` (SwiftUI) and `OuterJoynPromotionsView` (UIKit) show a promotion set's offers inline, sized to fit. Pass `layout` and `look` (any saved set setting) for this spot only. Web pages and app links from offer buttons open outside the view; link and rewards buttons open the kit's sheet.
+
 ## 1.4.1 (beta)
 
 - The appearance you pass to `OuterJoynSDK.shared.configure(appearance:)` or `OuterJoynSheet(appearance:)` now styles the hosted widgets (the link window included), not only the native views around them.
